@@ -1,0 +1,24 @@
+.wrapper{
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 10px ;
+  align-items: center
+}
+.wrapper:nth-child(even) {
+  background-color: #cecece
+}
+.text{
+  text-decoration: line-through;
+  transition:  0.8s ease-in-out ;
+}
+
+.Edit:hover{
+   background: rgb(109, 109, 235);
+   transition: 0.8s  ease-in-out;
+
+}
+.Delete:hover{
+background: rgb(255, 96, 96);
+transition: 0.5s  ease-in-out;
+
+}
