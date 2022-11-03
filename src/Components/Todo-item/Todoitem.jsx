@@ -2,28 +2,37 @@ import React from 'react'
 import css from "./Todoitem.module.css"
 import { MdDelete, MdEditOff, MdGames} from "react-icons/md";
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { todoSliceActions } from '../../state/todoSlice';
 export default function Todoitem(props) {
 
   const [isInputShow, setInputShow] = useState(false)
   const [micro, setMicro] = useState(props.text)
+  const dispatch = useDispatch()
+  const obj = {
+    id: props.id ,
+    text: props.text
+  }
 
   const onEdit = () => {
     setInputShow(!isInputShow)
   }
   const onDelete = () => {
-    props.handleDelete(props.id )
+    // props.handleDelete(props.id )
+    dispatch(todoSliceActions.deleteTodo(props.id))
   }
   const handleChange = (e) => {
     setMicro(e.target.value)
   }
-  const status = () => {
-    props.handleStatus()
+  const handleStatus = () => {
+    dispatch(todoSliceActions.changeStatus(props.id))
   }
   
   const submit = (e) => {
     e.preventDefault()
-    props.handleEdit(props.id , micro )
     setInputShow(false)
+    dispatch(todoSliceActions.editTodo({id: props.id , newText:micro}))
+
   }
   return (
     <div className={css.wrapper}>
@@ -40,7 +49,7 @@ export default function Todoitem(props) {
         </form>
       ) : (
         <label>
-          <input type="checkbox" onChange={() => props.handleStatus(props.id)} checked={props.status} />
+          <input type="checkbox" onChange={handleStatus} checked={props.status} />
           <span className={props.status === true ? css.text : " "}>{props.text}</span>
         </label>
       )

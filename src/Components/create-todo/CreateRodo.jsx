@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { todoSliceActions } from '../../state/todoSlice'
 import css from "./CreateTodo.css"
 
 export default function CreateRodo(props) {
   const [value, setValue] = useState("")
+  const dispatch = useDispatch()
 
   const submit = (event) => {
     event.preventDefault()
-    props.AddNewTodo(value)
     setValue("")
+    dispatch( todoSliceActions.addTodo(value))
 
   }
   const handleChange = (event) => {
-    console.log(event);
     setValue(event.target.value)
-
   }
 
 
